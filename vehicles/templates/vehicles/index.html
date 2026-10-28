@@ -15,7 +15,9 @@
       <div class="col-md-3">
         <div id="dashboard-nav" class="list-group position-sticky top-0">
           <a class="list-group-item list-group-item-action" href="#frequency-table">Frequency Tables (One-way)</a>
-          <a class="list-group-item list-group-item-action" href="#manufacturer-chart">Manufacturer Chart</a>
+            <a class="list-group-item list-group-item-action" href="#filtered-table">Cars Above 5000</a>
+            <a class="list-group-item list-group-item-action" href="#sales-table">Total Sales by Transmission</a>
+          <!-- <a class="list-group-item list-group-item-action" href="#manufacturer-chart">Manufacturer Chart</a> -->
         </div>
       </div>
       <div class="col-md-9">
@@ -24,14 +26,26 @@
           <h1 class="text-center text-primary mb-4">Vehicle Machine Learning Dashboard</h1>
 
           <div id="frequency-table" class="card shadow mb-5">
-            <div class="card-header bg-info text-white">Frequency Tables (One-way)</div>
-            <div class="card-body">{{ frequency_table|safe }}</div>
-          </div>
+  <div class="card-header bg-info text-white">Frequency Table (All Cars)</div>
+  <div class="card-body">{{ frequency_table|safe }}</div>
+</div>
 
-          <div id="manufacturer-chart" class="card shadow mb-5">
+<div id="filtered-table" class="card shadow mb-5">
+  <div class="card-header bg-info text-white">Cars bought for more than 5000</div>
+  <div class="card-body" style="max-height: 500px; overflow: auto;">
+    <p class="text-muted">{{ filtered_count }} cars matched.</p>
+    {{ filtered_table|safe }}
+  </div>
+</div>
+<div id="sales-table" class="card shadow mb-5">
+  <div class="card-header bg-info text-white">Total Selling Price by Manufacturer and Transmission</div>
+  <div class="card-body">{{ sales_table|safe }}</div>
+</div>
+
+          <!-- <div id="manufacturer-chart" class="card shadow mb-5">
             <div class="card-header bg-info text-white">Manufacturer Chart</div>
             <div class="card-body">{{ manufacturer_chart|safe }}</div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>

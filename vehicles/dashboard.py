@@ -1,22 +1,36 @@
 import pandas as pd
-import plotly.express as px
+
+
+def filter_by_price(df, min_price=5000, column="selling_price"):
+    """Select all cars bought for more than min_price."""
+    return df[df[column] > min_price]
 
 
 def frequency_table(df):
+    """Manufacturer and Count (all cars)."""
     counts = df["manufacturer"].value_counts().reset_index()
     counts.columns = ["Manufacturer", "Count"]
     return counts.to_html(
         classes="table table-bordered table-striped table-sm",
-        float_format="%.2f",
         justify="center",
         index=False,
     )
 
 
-def manufacturer_chart(df):
-    counts = df["manufacturer"].value_counts().reset_index()
-    counts.columns = ["Manufacturer", "Count"]
-    fig = px.bar(counts, x="Manufacturer", y="Count", color="Manufacturer",
-                 title="Vehicles by Manufacturer")
-    fig.update_layout(showlegend=False, margin=dict(l=20, r=20, t=50, b=20))
-    return fig.to_html(full_html=False, include_plotlyjs="cdn")
+def full_table(df):
+    """Every column and row of the data given."""
+    return df.to_html(
+        classes="table table-bordered table-striped table-sm",
+        justify="center",
+        index=False,
+    )
+
+
+def sales_by_transmission(df):
+    """Total selling price for each manufacturer and transmission type."""
+    totals = df.groupby(["manufacturer", "transmission"])["selling_price"].sum()
+    totals = totals.to_frame("total_selling_price")
+    return totals.to_html(
+        classes="table table-bordered table-striped table-sm",
+        justify="center",
+    )
